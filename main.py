@@ -10,6 +10,20 @@ import sqlite3
 con = sqlite3.connect('db.db', check_same_thread=False)
 cur = con.cursor()
 
+#백엔드에 컬럼생성하는 SQL 코드 삽입
+#IF NOT EXISTS -> 테이블이 없을 때만 생성되도록
+cur.execute(f"""
+            CREATE TABLE IF NOT EXISTS items(   
+	            id INTEGER PRIMARY KEY,
+	            title INTEGER NO NULL,
+	            image BLOB,
+	            price INTEGER NOT NULL,
+	            description TEXT,
+	            place TEXT NOT NULL,
+	            insertAt INTEGER NOT NULL
+            );      
+            """)
+
 app = FastAPI()
 
 #Rest API CRUD의 C/ post-get-put-delete
