@@ -65,6 +65,20 @@ async def get_image(item_id):
                                """).fetchone()[0]
      return Response(content = bytes.fromhex(image_bytes))
  
+#signup API로 요청 데이터를 보내기 때문에, post로 받음.  
+@app.post('/signup')
+def signup(id:Annotated[str,Form()], 
+           password:Annotated[str,Form()],
+           name:Annotated[str,Form()],
+           email:Annotated[str,Form()]):
+    ## DB에 회원정보 저장
+    cur.execute(f"""
+                INSERT INTO users(id,name,email,password)
+                VALUES ('{id}', '{name}', '{email}', '{password}')
+                """)
+    con.commit() ## DB에 제대로 들어갔는지 확인
+    return '200'          #200을 뱉음
+ 
 #FastAPI static files에서 복붙
 #frontend 폴더 별도들고 HTML, CSS 소스 담기
 app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")
