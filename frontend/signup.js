@@ -31,6 +31,7 @@ const handleSubmitForm = async (event) => {
     });
 
     const data = await res.json(); //서버로부터 체크 데이터를 받았는데
+
     //그 데이터가 200이었을 때,
     if (data === "200") {
       alert("회원 가입에 성공했습니다."); //200되어서 회원가입 성공하면, alert 나옴
